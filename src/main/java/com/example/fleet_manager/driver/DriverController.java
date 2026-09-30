@@ -29,8 +29,7 @@ public class DriverController {
     }
     @GetMapping("/{id}")
     public Driver getDriver (@PathVariable Long id){
-        Driver driver = driverService.getDriverById(id);
-        return driver;
+        return driverService.getDriverById(id);
     }
 
 
