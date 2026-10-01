@@ -1,7 +1,6 @@
-package com.example.fleet_manager.driver;
+package com.example.fleet_manager.src.driver;
 
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

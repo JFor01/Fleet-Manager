@@ -1,9 +1,12 @@
-package com.example.fleet_manager.trip;
+package com.example.fleet_manager.src.trip;
 
-import com.example.fleet_manager.car.Car;
-import com.example.fleet_manager.driver.Driver;
+import com.example.fleet_manager.src.car.Car;
+import com.example.fleet_manager.src.driver.Driver;
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+@Component
 @Entity
 public class Trip {
 
@@ -13,6 +16,7 @@ public class Trip {
         FINISHED
     }
     @Id
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
@@ -37,6 +41,15 @@ public class Trip {
         this.driver = driver;
         this.car = car;
         this.status = status;
+        this.destination = destination;
+        this.origin = origin;
+    }
+
+    public Trip (Driver driver, Car car,
+                 String destination, String origin
+    ){
+        this.driver = driver;
+        this.car = car;
         this.destination = destination;
         this.origin = origin;
     }
@@ -88,4 +101,5 @@ public class Trip {
     public void setOrigin(String origin) {
         this.origin = origin;
     }
+
 }

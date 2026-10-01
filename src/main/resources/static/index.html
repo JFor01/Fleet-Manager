@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fleet Manager – Trip planning</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+  <header class="site-header">
+    <h1>Fleet Manager</h1>
+    <p>Pick a driver and a car, then plan where they're going.</p>
+  </header>
+
+  <main class="layout">
+
+    <!-- LEFT: everything in the fleet -->
+    <aside class="fleet">
+
+      <section class="fleet-group" aria-labelledby="drivers-heading">
+        <h2 id="drivers-heading">Drivers <span class="count" id="driver-count">0</span></h2>
+        <ul class="fleet-list" id="driver-list">
+          <!-- JS: one <li> per driver -->
+        </ul>
+        <p class="empty" id="driver-empty">No drivers yet.</p>
+      </section>
+
+      <section class="fleet-group" aria-labelledby="cars-heading">
+        <h2 id="cars-heading">Cars <span class="count" id="car-count">0</span></h2>
+        <ul class="fleet-list" id="car-list">
+          <!-- JS: one <li> per car -->
+        </ul>
+        <p class="empty" id="car-empty">No cars yet.</p>
+      </section>
+
+    </aside>
+
+    <!-- RIGHT: planning + planned trips -->
+    <div class="work">
+
+      <section class="planner" aria-labelledby="planner-heading">
+        <h2 id="planner-heading">Plan a trip</h2>
+
+        <form id="trip-form" novalidate>
+
+          <div class="assign">
+            <div class="field">
+              <label for="driver-select">Driver</label>
+              <select id="driver-select" name="driverId" required>
+                <option value="">Choose a driver</option>
+                <!-- JS: one <option value="{id}"> per driver -->
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="car-select">Car</label>
+              <select id="car-select" name="carId" required>
+                <option value="">Choose a car</option>
+                <!-- JS: one <option value="{id}"> per car -->
+              </select>
+            </div>
+          </div>
+
+          <!-- the route: origin and destination joined by a road line -->
+          <div class="route">
+            <div class="field stop stop-start">
+              <label for="origin">From</label>
+              <input type="text" id="origin" name="origin" placeholder="e.g. Kosice depot" required>
+            </div>
+
+            <div class="field stop stop-end">
+              <label for="destination">To</label>
+              <input type="text" id="destination" name="destination" placeholder="e.g. Presov" required>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" id="plan-button">Plan trip</button>
+            <p class="message" id="form-message" role="status" aria-live="polite"></p>
+          </div>
+
+        </form>
+      </section>
+
+      <section class="trips" aria-labelledby="trips-heading">
+        <h2 id="trips-heading">Planned trips</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Driver</th>
+                <th scope="col">Car</th>
+                <th scope="col">From</th>
+                <th scope="col">To</th>
+                <th scope="col">Status</th>
+                <th scope="col"><span class="visually-hidden">Actions</span></th>
+              </tr>
+            </thead>
+            <tbody id="trip-table-body">
+              <!-- JS: one <tr> per trip -->
+            </tbody>
+          </table>
+        </div>
+        <p class="empty" id="trip-empty">No trips planned yet. Plan one above.</p>
+      </section>
+
+    </div>
+  </main>
+
+</body>
+</html>

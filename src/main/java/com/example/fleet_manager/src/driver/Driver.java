@@ -1,4 +1,4 @@
-package com.example.fleet_manager.driver;
+package com.example.fleet_manager.src.driver;
 
 import jakarta.persistence.*;
 import jdk.jfr.Name;
@@ -14,6 +14,8 @@ public class Driver implements Serializable {
     private String name;
     @Column
     private int age;
+    @Column
+    private boolean active = false;
 
     protected Driver(){
 
@@ -39,5 +41,9 @@ public class Driver implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public boolean isActive(){
+        return active;
     }
 }

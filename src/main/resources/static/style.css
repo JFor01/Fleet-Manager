@@ -1,0 +1,260 @@
+/* ---------- Tokens ---------- */
+:root {
+  --concrete: #e9edf0;   /* page background */
+  --panel: #ffffff;
+  --asphalt: #1f2a33;    /* main text, road */
+  --muted: #5b6773;
+  --line: #c9d1d8;
+  --signal: #f2b705;     /* road-marking yellow, the one accent */
+  --ok: #2e7d4f;
+  --error: #b3261e;
+
+  --font: "Barlow", system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Barlow", system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--asphalt);
+  background: var(--concrete);
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+  padding: 1.5rem clamp(1rem, 4vw, 3rem);
+  background: var(--asphalt);
+  color: #fff;
+  border-bottom: 4px solid var(--signal);
+}
+.site-header h1 { font-size: 2rem; letter-spacing: 0.01em; }
+.site-header p  { margin: 0.25rem 0 0; color: #c5ced6; }
+
+/* ---------- Page layout ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) 1fr;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 4vw, 3rem) 3rem;
+  align-items: start;
+}
+
+.work { display: grid; gap: 1.5rem; }
+
+/* ---------- Fleet sidebar ---------- */
+.fleet {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.fleet-group h2 {
+  font-size: 1.35rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.count {
+  font-family: var(--font);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.fleet-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* JS can render items like:
+   <li class="fleet-item"><span>Juraj</span><span class="tag">24</span></li>  */
+.fleet-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--concrete);
+}
+.fleet-item:last-child { border-bottom: none; }
+
+.tag {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.tag.is-busy { color: var(--error); }   /* e.g. a car that is in use */
+
+.empty {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-style: italic;
+}
+/* hide the empty message from JS with: element.hidden = true */
+.empty[hidden] { display: none; }
+
+/* ---------- Planner ---------- */
+.planner, .trips {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+}
+.planner h2, .trips h2 { font-size: 1.6rem; margin-bottom: 1rem; }
+
+.field { display: grid; gap: 0.3rem; }
+
+label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+input, select {
+  font: inherit;
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--asphalt);
+  width: 100%;
+}
+
+input:focus-visible, select:focus-visible, button:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 2px;
+}
+
+.assign {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+/* The route: two stops connected by a road with a dashed centre line */
+.route {
+  position: relative;
+  display: grid;
+  gap: 1.25rem;
+  padding-left: 2.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.route::before {                       /* the road */
+  content: "";
+  position: absolute;
+  left: 0.55rem;
+  top: 2.3rem;
+  bottom: 1.15rem;
+  width: 0.6rem;
+  background:
+    repeating-linear-gradient(to bottom, var(--signal) 0 8px, transparent 8px 16px)
+      center / 2px 100% no-repeat,
+    var(--asphalt);
+  border-radius: 2px;
+}
+
+.stop { position: relative; }
+
+.stop::before {                        /* the stop marker */
+  content: "";
+  position: absolute;
+  left: -2.25rem;
+  bottom: 0.7rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  border: 3px solid var(--asphalt);
+  background: #fff;
+}
+.stop-end::before { background: var(--signal); }
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--asphalt);
+  color: #fff;
+  cursor: pointer;
+}
+button:hover { background: #2f3e4a; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* JS: add class "is-ok" or "is-error" to #form-message */
+.message { margin: 0; }
+.message.is-ok    { color: var(--ok); }
+.message.is-error { color: var(--error); }
+
+/* ---------- Trips table ---------- */
+.table-wrap { overflow-x: auto; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* smaller secondary button for rows, e.g. "End trip" */
+.button-small {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  background: transparent;
+  color: var(--asphalt);
+  border: 1px solid var(--asphalt);
+}
+.button-small:hover { background: var(--concrete); }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  .assign { grid-template-columns: 1fr; }
+}

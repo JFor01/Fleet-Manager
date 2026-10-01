@@ -1,0 +1,10 @@
+POST http://localhost:8080/api/driver
+Content-Type: application/json
+
+{
+  "age": 24,
+  "name": "Juraj"
+}
+
+###
+GET http://localhost:8080/api/driver/552

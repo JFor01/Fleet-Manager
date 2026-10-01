@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/car
+Content-Type: application/json
+
+{
+  "referenceName": "XYZ",
+  "brand": "Mercedes"
+}

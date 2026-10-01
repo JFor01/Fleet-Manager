@@ -1,4 +1,4 @@
-package com.example.fleet_manager.car;
+package com.example.fleet_manager.src.car;
 
 import org.springframework.web.bind.annotation.*;
 

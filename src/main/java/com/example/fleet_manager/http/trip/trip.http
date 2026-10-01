@@ -1,0 +1,21 @@
+POST http://localhost:8080/api/trip
+Content-Type: application/json
+
+{
+    "driverId" : 552,
+    "carId" : 52,
+    "destination" : "Helsinky",
+    "origin" : "Vienna"
+}
+
+###
+POST http://localhost:8080/api/trip/start/102
+
+###
+POST http://localhost:8080/api/trip/end/102
+
+###
+GET http://localhost:8080/api/trip/52
+
+###
+DELETE http://localhost:8080/api/trip/52

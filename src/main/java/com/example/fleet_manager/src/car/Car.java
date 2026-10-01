@@ -1,13 +1,9 @@
-package com.example.fleet_manager.car;
+package com.example.fleet_manager.src.car;
 
-import com.example.fleet_manager.driver.Driver;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.springframework.stereotype.Controller;
-
-import javax.annotation.processing.Generated;
 
 @Entity
 public class Car {
@@ -18,6 +14,8 @@ public class Car {
     private String referenceName;
     @Column
     private String brand;
+    @Column
+    private boolean inUse = false;
 
 
     protected Car(){
@@ -53,4 +51,9 @@ public class Car {
     public void setBrand(String brand) {
         this.brand = brand;
     }
+
+    public boolean isInUse() {
+        return inUse;
+    }
+
 }
