@@ -16,14 +16,18 @@ import java.util.Optional;
 @Service
 public class TripService {
 
+    private final CarService carService;
     private TripRepository tripRepository;
     private TripPlanner tripPlanner;
+    private DriverService driverService;
 
 
 
-    public TripService (TripRepository tripRepository, TripPlanner tripPlanner){
+    public TripService (TripRepository tripRepository, TripPlanner tripPlanner, DriverService driverService, CarService carService){
         this.tripRepository = tripRepository;
         this.tripPlanner = tripPlanner;
+        this.driverService = driverService;
+        this.carService = carService;
     }
 
 
@@ -57,21 +61,24 @@ public class TripService {
         tripRepository.deleteById(id);
     }
 
-    public void updateTrip(Trip trip){
-        tripRepository.save(trip);
-    }
 
     @Transactional
     public void startTrip(Long id){
         Trip trip = getTripById(id);
         tripPlanner.startTrip(trip);
-        updateTrip(trip);
+        driverService.setActive(trip.getDriver().getId());
+        carService.setActive(trip.getCar().getId());
+        tripRepository.save(trip);
     }
-
+    @Transactional
     public void endTrip(Long id){
         Trip trip = getTripById(id);
         tripPlanner.endTrip(trip);
-        updateTrip(trip);
+        driverService.setInactive(trip.getDriver().getId());
+        carService.setInactive(trip.getCar().getId());
+        tripRepository.save(trip);
     }
+
+
 
 }

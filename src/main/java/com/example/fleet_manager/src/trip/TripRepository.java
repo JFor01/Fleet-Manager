@@ -8,6 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface TripRepository extends JpaRepository<Trip,Long> {
-    @Query("SELECT t from Trip t ORDER BY t.createdAt desc ")
+    @Query("SELECT t from Trip t ORDER BY t.created_at asc ")
     List<Trip> findNewestFirst();
 }

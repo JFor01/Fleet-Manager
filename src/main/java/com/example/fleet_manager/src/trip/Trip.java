@@ -22,8 +22,8 @@ public class Trip {
     @GeneratedValue
     private Long id;
     @CreationTimestamp
-    @Column
-    private Date createdAt;
+    @Column(updatable = false)
+    private Date created_at;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")

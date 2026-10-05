@@ -17,6 +17,20 @@ async function postTrip(driverId, carId, origin, destination){
     return response.json();
 }
 
+async function startTrip(tripId){
+    const response = await fetch("/api/trip/start/" + tripId,{
+        method : "POST"
+    })
+    if (!response.ok) throw new Error("Couldn't start trip");
+}
+
+async function endTrip(tripId){
+    const response = await fetch("/api/trip/end/" + tripId,{
+        method : "POST"
+    })
+    if(!response.ok) throw new Error("Couldn't end trip")
+}
+
 async function getDrivers(){
     const response = await fetch("/api/driver",
     )
@@ -46,3 +60,4 @@ async function getTripsByOrder(){
         throw new Error('Could not fetch trips');
     return response.json();
 }
+

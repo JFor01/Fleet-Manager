@@ -16,3 +16,30 @@
     }
 
     )
+
+
+
+
+ tripTable.addEventListener("click",
+     async (event) => {
+        const button = event.target.closest("button[data-trip-id]")
+         if(!button) return;
+
+         await handleButton(button);
+         const trips = await getTripsByOrder();
+         tripTableBody.replaceChildren();
+         showTrips(trips);
+         driverList.replaceChildren();
+         const drivers = await getDrivers();
+         showDrivers(drivers);
+         carList.replaceChildren();
+         const cars = await getCars();
+         showCars(cars);
+         driverSelect.replaceChildren();
+         carSelect.replaceChildren();
+         addDrivers(drivers);
+         addCars(cars);
+
+     }
+
+     )

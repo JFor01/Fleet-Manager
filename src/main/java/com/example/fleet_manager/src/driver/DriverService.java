@@ -15,8 +15,9 @@ public class DriverService {
     }
 
     public void saveDriver (String name, int age){
-        driverRepository.save(new Driver(name,age));
+        driverRepository.save(new Driver(name,age,false));
     }
+
 
     public Driver getDriverById (long id){
         Optional<Driver> driverOptional = driverRepository.findById(id);
@@ -34,6 +35,18 @@ public class DriverService {
         driverRepository.deleteById(id);
    }
 
+    public void setActive(Long id){
+       Driver driver = getDriverById(id);
+       driver.setActive();
+       driverRepository.save(driver);
+
+    }
+
+    public void setInactive(Long id){
+        Driver driver = getDriverById(id);
+        driver.setInactive();
+        driverRepository.save(driver);
+    }
 
 
 }

@@ -15,16 +15,17 @@ public class Car {
     @Column
     private String brand;
     @Column
-    private boolean inUse = false;
+    private boolean inUse;
 
 
     protected Car(){
 
     };
 
-    public Car(String referenceName, String brand){
+    public Car(String referenceName, String brand, boolean inUse){
         this.referenceName = referenceName;
         this.brand = brand;
+        this.inUse = inUse;
     }
 
 
@@ -34,6 +35,14 @@ public class Car {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setActive(){
+        this.inUse = true;
+    }
+
+    public void setInActive(){
+        this.inUse = false;
     }
 
     public String getReferenceName() {

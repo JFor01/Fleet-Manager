@@ -8,10 +8,9 @@ function showDrivers(drivers) {
         const name = document.createElement("span");
         name.textContent = driver.name;
         const age = document.createElement("span")
-        age.textContent = driver.age;
-        li.append(name, age)
+        age.textContent = driver.active ? "Not Available" : "Available";
+        li.append(name, age);
         driverList.append(li);
-        addDriver(driver);
         counter++;
     }
     if (counter>0){
@@ -28,12 +27,11 @@ function showCars(cars){
         const name = document.createElement("span");
         name.textContent = car.referenceName;
         const brandName = document.createElement("span");
-        brandName.textContent = car.brand;
+        brandName.textContent = car.inUse ? "Not Available" : "Available";
 
         li_car.append(name, brandName);
 
         carList.append(li_car);
-        addCar(car);
         counter ++;
     }
     if (counter > 0){
@@ -42,18 +40,37 @@ function showCars(cars){
 
 }
 
+function formatButton(button, status){
+    button.dataset.state = status;
+    if (status === "COMMENCING") {
+        button.textContent = "START TRIP";
+    }
+    else if(status === "ACTIVE"){
+        button.textContent = "END TRIP";
+    }
+    else if(status === "FINISHED"){
+        button.hidden = true;
+    }
+}
 
 function showTrips(trips){
     const items = Array.isArray(trips) ? trips : [trips]
-    let counter = 0;
     for(const trip of items){
         const tableRow = document.createElement("tr");
-        tableRow.className = "fleet-table-row"
-        tableRow.insertCell().textContent = trip.driver.name
+        const startButton = document.createElement("button");
+        startButton.className = "button-small";
+        startButton.dataset.tripId = trip.id;
+        startButton.dataset.driverId = trip.driver.id;
+
+        formatButton(startButton,trip.status);
+
+        tableRow.className = "fleet-table-row";
+        tableRow.insertCell().textContent = trip.driver.name;
         tableRow.insertCell().textContent = trip.car.referenceName;
         tableRow.insertCell().textContent = trip.origin;
         tableRow.insertCell().textContent = trip.destination;
         tableRow.insertCell().textContent = trip.status;
+        tableRow.append(startButton);
         tripTable.prepend(tableRow);
 
     }

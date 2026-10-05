@@ -14,15 +14,16 @@ public class Driver implements Serializable {
     @Column
     private int age;
     @Column
-    private boolean active = false;
+    private boolean active;
 
     protected Driver(){
 
     }
 
-    public Driver (String name, int age){
+    public Driver (String name, int age, boolean active){
         this.name = name;
         this.age = age;
+        this.active = active;
     }
 
 
@@ -44,6 +45,13 @@ public class Driver implements Serializable {
 
     public boolean isActive(){
         return active;
+    }
+
+    public void setActive(){
+        this.active = true;
+    }
+    public void setInactive(){
+        this.active = false;
     }
 
     public Long getId() {

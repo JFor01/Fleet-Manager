@@ -17,7 +17,7 @@ public class CarService {
     }
 
     public void saveCar(String referenceName, String brand){
-        carRepository.save(new Car (referenceName,brand));
+        carRepository.save(new Car (referenceName,brand, false));
     }
 
     public Car getCarById(Long id){
@@ -34,6 +34,16 @@ public class CarService {
 
     public void deleteCar(Long id){
         carRepository.deleteById(id);
+    }
+    public void setActive(Long id){
+        Car car = getCarById(id);
+        car.setActive();
+        carRepository.save(car);
+    }
+    public void setInactive(Long id){
+        Car car = getCarById(id);
+        car.setInActive();
+        carRepository.save(car);
     }
 
 }

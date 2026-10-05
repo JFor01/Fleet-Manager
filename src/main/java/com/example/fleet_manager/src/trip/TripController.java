@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @RequestMapping("/api/trip")
 public class TripController {
 
-    public record TripResponse(Long tripId, Driver driver,
+    public record TripResponse(Long id, Driver driver,
                                 Car car,Trip.Status status,String destination,
                                 String origin){};
     public record TripRequest(Long driverId, Long carId, Trip.Status status, String destination,
@@ -38,7 +38,7 @@ public class TripController {
                 carService.getCarById(tripRequest.carId),
                 tripRequest.destination,
                 tripRequest.origin);
-        return ResponseEntity.created(URI.create("api/trip" + created.tripId))
+        return ResponseEntity.created(URI.create("api/trip" + created.id))
                 .body(created);
     }
     @GetMapping("/{id}")
