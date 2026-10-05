@@ -1,13 +1,16 @@
 package com.example.fleet_manager.src.trip;
 
 import com.example.fleet_manager.src.car.Car;
+import com.example.fleet_manager.src.car.CarAlreadyInUseException;
 import com.example.fleet_manager.src.car.CarService;
 import com.example.fleet_manager.src.driver.Driver;
+import com.example.fleet_manager.src.driver.DriverAlreadyActiveException;
 import com.example.fleet_manager.src.driver.DriverService;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.ErrorResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +66,21 @@ public class TripService {
 
 
     @Transactional
-    public void startTrip(Long id){
+    public void startTrip(Long id) throws DriverAlreadyActiveException,CarAlreadyInUseException{
         Trip trip = getTripById(id);
         tripPlanner.startTrip(trip);
-        driverService.setActive(trip.getDriver().getId());
-        carService.setActive(trip.getCar().getId());
+        try {
+            driverService.setActive(trip.getDriver().getId());
+        }
+        catch (DriverAlreadyActiveException e){
+            throw new DriverAlreadyActiveException (e.getMessage());
+        }
+        try{
+            carService.setActive(trip.getCar().getId());
+        }
+        catch (CarAlreadyInUseException e){
+            throw new CarAlreadyInUseException(e.getMessage());
+        }
         tripRepository.save(trip);
     }
     @Transactional

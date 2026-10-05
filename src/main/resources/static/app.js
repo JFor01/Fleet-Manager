@@ -54,8 +54,13 @@ function displayDriver(id){
 
 async function handleButton(button){
     if (button.dataset.state === "COMMENCING"){
-        await startTrip(button.dataset.tripId);
-        button.dataset.state = "ACTIVE";
+        try {
+            await startTrip(button.dataset.tripId);
+            button.dataset.state = "ACTIVE";
+        }
+        catch (error){
+            alert(error.message);
+        }
     }
     else if(button.dataset.state === "ACTIVE"){
         await endTrip(button.dataset.tripId);

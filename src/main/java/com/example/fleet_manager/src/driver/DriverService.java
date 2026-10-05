@@ -35,11 +35,13 @@ public class DriverService {
         driverRepository.deleteById(id);
    }
 
-    public void setActive(Long id){
+    public void setActive(Long id) throws DriverAlreadyActiveException{
        Driver driver = getDriverById(id);
-       driver.setActive();
+       try {driver.setActive();}
+       catch (DriverAlreadyActiveException e) {
+           throw new DriverAlreadyActiveException(e.getMessage());
+       }
        driverRepository.save(driver);
-
     }
 
     public void setInactive(Long id){

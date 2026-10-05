@@ -47,7 +47,8 @@ public class Driver implements Serializable {
         return active;
     }
 
-    public void setActive(){
+    public void setActive() throws DriverAlreadyActiveException{
+        if (this.active) throw new DriverAlreadyActiveException("Driver is already on a trip");
         this.active = true;
     }
     public void setInactive(){

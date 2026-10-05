@@ -2,9 +2,12 @@ package com.example.fleet_manager.src.trip;
 
 
 import com.example.fleet_manager.src.car.Car;
+import com.example.fleet_manager.src.car.CarAlreadyInUseException;
 import com.example.fleet_manager.src.car.CarService;
 import com.example.fleet_manager.src.driver.Driver;
+import com.example.fleet_manager.src.driver.DriverAlreadyActiveException;
 import com.example.fleet_manager.src.driver.DriverService;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,8 +63,13 @@ public class TripController {
     }
 
     @PostMapping("/start/{id}")
-    public void startTrip (@PathVariable Long id){
-        tripService.startTrip(id);
+    public ResponseEntity<Long> startTrip (@PathVariable Long id){
+        try {
+           tripService.startTrip(id);
+        } catch (DriverAlreadyActiveException | CarAlreadyInUseException e) {
+            return ResponseEntity.status(HttpStatusCode.valueOf(409)).body(id);
+        }
+        return ResponseEntity.created(URI.create("/api/trip/start/" + id)).body(id);
     }
     @PostMapping("/end/{id}")
     public void endTrip (@PathVariable Long id){

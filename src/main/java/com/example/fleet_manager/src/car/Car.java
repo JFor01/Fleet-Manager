@@ -37,7 +37,8 @@ public class Car {
         this.id = id;
     }
 
-    public void setActive(){
+    public void setActive () throws CarAlreadyInUseException{
+        if (this.inUse) throw new CarAlreadyInUseException("Car already in use");
         this.inUse = true;
     }
 
