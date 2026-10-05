@@ -8,7 +8,6 @@ import java.io.Serializable;
 public class Driver implements Serializable {
     @Id
     @GeneratedValue
-    @Name("driverid")
     private Long id;
     @Column
     private String name;
@@ -45,5 +44,13 @@ public class Driver implements Serializable {
 
     public boolean isActive(){
         return active;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

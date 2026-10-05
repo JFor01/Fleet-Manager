@@ -3,6 +3,7 @@ package com.example.fleet_manager.src.driver;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,12 @@ public class DriverService {
         Optional<Driver> driverOptional = driverRepository.findById(id);
         if (driverOptional.isPresent()) return driverOptional.get();
         else throw new NoDriverException("The requested driver wasn't found");
+    }
+
+    public ArrayList<Driver> getAllDrivers(){
+        ArrayList<Driver> drivers = new ArrayList<>();
+        driverRepository.findAll().forEach(driver -> {drivers.add(driver);});
+        return drivers;
     }
 
    public void deleteDriver (Long id){

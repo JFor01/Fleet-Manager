@@ -3,6 +3,8 @@ package com.example.fleet_manager.src.driver;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/api/driver")
 public class DriverController {
@@ -30,7 +32,10 @@ public class DriverController {
     public Driver getDriver (@PathVariable Long id){
         return driverService.getDriverById(id);
     }
-
+    @GetMapping
+    public ArrayList<Driver> getAllDrivers(){
+        return driverService.getAllDrivers();
+    }
 
 
 

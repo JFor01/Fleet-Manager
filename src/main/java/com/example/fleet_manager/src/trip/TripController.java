@@ -5,15 +5,21 @@ import com.example.fleet_manager.src.car.Car;
 import com.example.fleet_manager.src.car.CarService;
 import com.example.fleet_manager.src.driver.Driver;
 import com.example.fleet_manager.src.driver.DriverService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/api/trip")
 public class TripController {
 
-    public record TripResponse(Long driverId,
-                                Long carId,Trip.Status status,String destination,
+    public record TripResponse(Long tripId, Driver driver,
+                                Car car,Trip.Status status,String destination,
                                 String origin){};
+    public record TripRequest(Long driverId, Long carId, Trip.Status status, String destination,
+                                    String origin){};
 
     private TripService tripService;
     private DriverService driverService;
@@ -26,16 +32,26 @@ public class TripController {
     }
 
     @PostMapping
-    public void saveTrip(@RequestBody TripResponse tripResponse){
-        tripService.saveTrip(
-                driverService.getDriverById(tripResponse.driverId),
-                carService.getCarById(tripResponse.carId),
-                tripResponse.destination,
-                tripResponse.origin);
+    public ResponseEntity<TripResponse> saveTrip(@RequestBody TripRequest tripRequest){
+        TripResponse created = tripService.saveTrip(
+                driverService.getDriverById(tripRequest.driverId),
+                carService.getCarById(tripRequest.carId),
+                tripRequest.destination,
+                tripRequest.origin);
+        return ResponseEntity.created(URI.create("api/trip" + created.tripId))
+                .body(created);
     }
     @GetMapping("/{id}")
     public Trip getTripById(@PathVariable Long id){
         return tripService.getTripById(id);
+    }
+    @GetMapping
+    public ArrayList<Trip> getAllTrips(){
+        return tripService.getAllTrips();
+    }
+    @GetMapping("/order")
+    public ArrayList<Trip> getAllTripsByOrder(){
+        return tripService.getAllTripsFromNewest();
     }
 
     @DeleteMapping("{id}")

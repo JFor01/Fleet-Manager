@@ -4,7 +4,7 @@ Content-Type: application/json
 {
     "driverId" : 552,
     "carId" : 52,
-    "destination" : "Helsinky",
+    "destination" : "Košice",
     "origin" : "Vienna"
 }
 
@@ -19,3 +19,6 @@ GET http://localhost:8080/api/trip/52
 
 ###
 DELETE http://localhost:8080/api/trip/52
+
+###
+GET http://localhost:8080/api/trip

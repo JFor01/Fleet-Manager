@@ -3,8 +3,11 @@ package com.example.fleet_manager.src.trip;
 import com.example.fleet_manager.src.car.Car;
 import com.example.fleet_manager.src.driver.Driver;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
 
 @Component
 @Entity
@@ -18,6 +21,9 @@ public class Trip {
     @Id
     @GeneratedValue
     private Long id;
+    @CreationTimestamp
+    @Column
+    private Date createdAt;
 
     @ManyToOne
     @JoinColumn(name = "driver_id")

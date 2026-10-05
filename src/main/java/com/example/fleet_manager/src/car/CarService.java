@@ -3,6 +3,8 @@ package com.example.fleet_manager.src.car;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +24,12 @@ public class CarService {
         Optional<Car> optionCar =  carRepository.findById(id);
         if (optionCar.isPresent()) return optionCar.get();
         else throw new NoCarException("There is no car with id" + id);
+    }
+
+    public ArrayList<Car> getAllCars (){
+        ArrayList<Car> cars = new ArrayList<>();
+        carRepository.findAll().forEach(car -> {cars.add(car);});
+        return cars;
     }
 
     public void deleteCar(Long id){

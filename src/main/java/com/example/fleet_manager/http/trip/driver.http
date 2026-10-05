@@ -2,9 +2,9 @@ POST http://localhost:8080/api/driver
 Content-Type: application/json
 
 {
-  "age": 24,
-  "name": "Juraj"
+  "age": 29,
+  "name": "Alex"
 }
 
 ###
-GET http://localhost:8080/api/driver/552
+GET http://localhost:8080/api/driver
