@@ -1,4 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
+import {DriverService} from './services/DriverService';
+import {toSignal} from '@angular/core/rxjs-interop'
+import {CarrService} from './services/CarService';
 
 
 
@@ -8,6 +11,11 @@ import {Component} from '@angular/core';
   styleUrl : "../../styles.css"
 
 })
-export class Header{
-  title = "Aside"
+export class Aside{
+  title = "Aside";
+  driverService  = inject(DriverService);
+  carService  = inject(CarrService);
+  protected drivers = this.driverService.drivers;
+  protected cars = this.carService.cars;
+
 }

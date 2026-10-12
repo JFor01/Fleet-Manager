@@ -1,42 +1,5 @@
 <section class="planner" aria-labelledby="planner-heading">
   <h2 id="planner-heading">Plan a trip</h2>
 
-  <form id="trip-form" novalidate>
-
-    <div class="assign">
-      <div class="field">
-        <label for="driver-select">Driver</label>
-        <select id="driver-select" name="driverId" required>
-          <option value="">Choose a driver</option>
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="car-select">Car</label>
-        <select id="car-select" name="carId" required>
-          <option value="">Choose a car</option>
-          <!-- JS: one <option value="{id}"> per car -->
-        </select>
-      </div>
-    </div>
-
-    <!-- the route: origin and destination joined by a road line -->
-    <div class="route">
-      <div class="field stop stop-start">
-        <label for="origin">From</label>
-        <input type="text" id="origin" name="origin" placeholder="e.g. Kosice depot" required>
-      </div>
-
-      <div class="field stop stop-end">
-        <label for="destination">To</label>
-        <input type="text" id="destination" name="destination" placeholder="e.g. Presov" required>
-      </div>
-    </div>
-
-    <div class="actions">
-      <button type="submit" id="plan-button">Plan trip</button>
-      <p class="message" id="form-message" role="status" aria-live="polite"></p>
-    </div>
-
-  </form>
+  <trip-form></trip-form>
 </section>

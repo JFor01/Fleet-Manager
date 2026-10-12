@@ -1,0 +1,43 @@
+<form id="trip-form" [formGroup]="form" (ngSubmit)="plan()">
+
+  <div class="assign">
+    <div class="field">
+      <label for="driver-select">Driver</label>
+      <select id="driver-select" formControlName="driverId">
+        <option [ngValue]="null" disabled>Choose a driver</option>
+        @for (d of drivers(); track d.id) {
+          <option [ngValue]="d.id">{{ d.name }}</option>
+        }
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="car-select">Car</label>
+      <select id="car-select" formControlName="carId">
+        <option [ngValue]="null" disabled>Choose a car</option>
+        @for (c of cars(); track c.id) {
+          <option [ngValue]="c.id">{{ c.referenceName }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <!-- the route: origin and destination joined by a road line -->
+  <div class="route">
+    <div class="field stop stop-start">
+      <label for="origin">From</label>
+      <input type="text" id="origin" formControlName="origin" placeholder="e.g. Kosice depot">
+    </div>
+
+    <div class="field stop stop-end">
+      <label for="destination">To</label>
+      <input type="text" id="destination" formControlName="destination" placeholder="e.g. Presov">
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="submit" id="plan-button">Plan trip</button>
+    <p class="message" id="form-message" role="status" aria-live="polite">{{ message() }}</p>
+  </div>
+
+</form>
