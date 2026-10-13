@@ -1,6 +1,13 @@
-export type Car = {
+import {Indexable} from './Indexable';
+
+export interface Car extends Indexable   {
   referenceName : string;
-  id : number;
   brand : string;
-  active : boolean;
+  inUse : boolean;
+}
+
+
+export type CarRequest={
+  referenceName : string;
+  brand : string;
 }

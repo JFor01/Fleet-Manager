@@ -1,18 +1,28 @@
-import {inject, Injectable} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Driver} from '../entities/Driver';
+import {Driver, DriverRequest} from '../entities/Driver';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {Car} from '../entities/Car';
+import {updateEntity} from '../utils/list';
 
 
 @Injectable({providedIn : "root"})
 export class DriverService{
     private http : HttpClient = inject(HttpClient);
     private url : string = "/api/driver";
-    public drivers = toSignal(this.getAll(), {initialValue : []})
+    private _drivers = signal<Driver[]>([]);
+    public drivers = this._drivers.asReadonly();
+
+    constructor() {
+      this.getAll().subscribe(response =>this._drivers.set(response)
+      )
+    }
 
 
-
+  public updateDriver(driver: Driver){
+    this._drivers.update(list => updateEntity(driver,list));
+  }
 
 
    private getAll() : Observable<Driver[]>{

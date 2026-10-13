@@ -24,10 +24,10 @@
   <section class="fleet-group" aria-labelledby="cars-heading">
     <h2 id="cars-heading">Cars </h2>
     <ul class="fleet-list" id="car-list">
-      @for (u of cars() ; track u.id) {
+      @for (c of cars() ; track c.id) {
         <li class = "fleet-item ">
-          <span> {{u.referenceName}} </span>
-          <span> @if (u.active) {
+          <span> {{c.referenceName}} </span>
+          <span> @if (c.inUse) {
             Unavailable
           } @else {
             Available

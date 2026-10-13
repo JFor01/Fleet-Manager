@@ -35,10 +35,10 @@ public class CarService {
     public void deleteCar(Long id){
         carRepository.deleteById(id);
     }
-    public void setActive(Long id){
+    public Car setActive(Long id){
         Car car = getCarById(id);
         car.setActive();
-        carRepository.save(car);
+        return carRepository.save(car);
     }
     public void setInactive(Long id){
         Car car = getCarById(id);

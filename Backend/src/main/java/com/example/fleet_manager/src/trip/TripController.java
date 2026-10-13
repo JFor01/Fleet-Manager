@@ -63,17 +63,18 @@ public class TripController {
     }
 
     @PostMapping("/start/{id}")
-    public ResponseEntity<Long> startTrip (@PathVariable Long id){
+    public ResponseEntity<Trip> startTrip (@PathVariable Long id){
         try {
-           tripService.startTrip(id);
+           Trip response = tripService.startTrip(id);
+            return ResponseEntity.created(URI.create("/api/trip/start/" + id)).body(response);
         } catch (DriverAlreadyActiveException | CarAlreadyInUseException e) {
-            return ResponseEntity.status(HttpStatusCode.valueOf(409)).body(id);
+            return ResponseEntity.status(HttpStatusCode.valueOf(409)).body(new Trip());
         }
-        return ResponseEntity.created(URI.create("/api/trip/start/" + id)).body(id);
+
     }
     @PostMapping("/end/{id}")
-    public void endTrip (@PathVariable Long id){
-        tripService.endTrip(id);
+    public Trip endTrip (@PathVariable Long id){
+       return tripService.endTrip(id);
     }
 
 

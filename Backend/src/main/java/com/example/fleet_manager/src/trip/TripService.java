@@ -66,7 +66,7 @@ public class TripService {
 
 
     @Transactional
-    public void startTrip(Long id) throws DriverAlreadyActiveException,CarAlreadyInUseException{
+    public Trip startTrip(Long id) throws DriverAlreadyActiveException,CarAlreadyInUseException{
         Trip trip = getTripById(id);
         tripPlanner.startTrip(trip);
         try {
@@ -77,19 +77,20 @@ public class TripService {
         }
         try{
             carService.setActive(trip.getCar().getId());
+
         }
         catch (CarAlreadyInUseException e){
             throw new CarAlreadyInUseException(e.getMessage());
         }
-        tripRepository.save(trip);
+        return tripRepository.save(trip);
     }
     @Transactional
-    public void endTrip(Long id){
+    public Trip endTrip(Long id){
         Trip trip = getTripById(id);
         tripPlanner.endTrip(trip);
         driverService.setInactive(trip.getDriver().getId());
         carService.setInactive(trip.getCar().getId());
-        tripRepository.save(trip);
+        return tripRepository.save(trip);
     }
 
 

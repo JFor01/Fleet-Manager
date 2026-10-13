@@ -16,9 +16,32 @@
       </tr>
       </thead>
       <tbody id="trip-table-body">
+        @for (trip of this.trips() ; track trip.id) {
+          <tr>
+            <td>{{trip.driver.name}}</td>
+            <td>{{trip.car.referenceName}}</td>
+            <td>{{trip.origin}}</td>
+            <td>{{trip.destination}}</td>
+            <td>{{trip.status}}</td>
+              <td >
+                @if (trip.status === "COMMENCING" ){
+                <button (click)="start(trip.id)" class="button-small">
+                PLAN TRIP
+              </button>
+                } @else if (trip.status ==="ACTIVE"){
+                  <button (click)="finish(trip.id)" ) class="button-small">
+                    FINISH TRIP
+                  </button>
+            }
+              </td>
+          </tr>
+        }
       <!-- JS: one <tr> per trip -->
       </tbody>
     </table>
   </div>
-  <p class="empty" id="trip-empty">No trips planned yet. Plan one above.</p>
+  @if (tripLength() === 0) {
+    <p class="empty" id="trip-empty">No trips planned yet. Plan one above.</p>
+  }
+
 </section>
