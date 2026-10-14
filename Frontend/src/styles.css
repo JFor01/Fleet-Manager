@@ -253,8 +253,34 @@ th {
   white-space: nowrap;
 }
 
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.toggle {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-weight: 400;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.toggle input {
+  width: auto;
+  margin: 0;
+}
+
 /* ---------- Small screens ---------- */
 @media (max-width: 760px) {
   .layout { grid-template-columns: 1fr; }
   .assign { grid-template-columns: 1fr; }
 }
+
+

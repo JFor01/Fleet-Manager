@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./Backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/fleet
+      SPRING_DATASOURCE_USERNAME: fleet
+      SPRING_DATASOURCE_PASSWORD: fleet
+    depends_on:
+      - db
+
+  frontend:
+    build: ./Frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: fleet
+      POSTGRES_USER: fleet
+      POSTGRES_PASSWORD: fleet
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

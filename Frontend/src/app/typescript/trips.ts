@@ -1,4 +1,4 @@
-import {Component, computed, inject} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {TripService} from './services/TripService';
 import {Status, Trip} from './entities/Trip';
 import {CarrService} from './services/CarService';
@@ -19,6 +19,7 @@ export class Trips{
   tripService = inject(TripService);
   trips = this.tripService.trips;
   tripLength = computed(() => this.trips().length);
+  showFinishedFlag = signal(false);
 
   protected start(tripId: number){
       this.tripService.start(tripId);
@@ -26,6 +27,10 @@ export class Trips{
 
   protected finish(tripId : number ){
     this.tripService.finish(tripId);
+  }
+
+  protected flipShown(){
+    this.showFinishedFlag.update(flag => !flag);
   }
 
   protected readonly length = length;

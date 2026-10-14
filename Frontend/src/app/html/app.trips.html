@@ -1,7 +1,14 @@
 
 
 <section class="trips" aria-labelledby="trips-heading">
-  <h2 id="trips-heading">Planned trips</h2>
+  <div class="section-header">
+    <h2 id="trips-heading">Planned trips</h2>
+    <label class="toggle">
+      Show finished
+      <input type="checkbox" (change)="flipShown()" )>
+    </label>
+  </div>
+
 
   <div class="table-wrap">
     <table>
@@ -17,6 +24,10 @@
       </thead>
       <tbody id="trip-table-body">
         @for (trip of this.trips() ; track trip.id) {
+          @if (!showFinishedFlag() && trip.status === "FINISHED" ){
+
+          }
+          @else{
           <tr>
             <td>{{trip.driver.name}}</td>
             <td>{{trip.car.referenceName}}</td>
@@ -26,7 +37,7 @@
               <td >
                 @if (trip.status === "COMMENCING" ){
                 <button (click)="start(trip.id)" class="button-small">
-                PLAN TRIP
+                START TRIP
               </button>
                 } @else if (trip.status ==="ACTIVE"){
                   <button (click)="finish(trip.id)" ) class="button-small">
@@ -35,6 +46,7 @@
             }
               </td>
           </tr>
+        }
         }
       <!-- JS: one <tr> per trip -->
       </tbody>

@@ -51,7 +51,7 @@ export class TripService{
   }
   public plan(trip : Omit<TripRequest, 'id'>){
     return this.http.post<Trip>(this.url,trip
-    ).subscribe(response =>{ this._trips.update(list => [...list, response])});
+    ).subscribe(response =>{ this._trips.update(list => [response,...list])});
   }
 
   delete(id : number) : Observable<void>{
