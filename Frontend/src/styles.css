@@ -122,7 +122,18 @@ h1, h2 {
 }
 .planner h2, .trips h2 { font-size: 1.6rem; margin-bottom: 1rem; }
 
+.fleet-add{
+
+}
 .field { display: grid; gap: 0.3rem; }
+
+.field-add input {
+  height: 1.8rem;            /* makes both inputs thinner */
+  padding: 0 0.4rem;
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+
 
 label {
   font-weight: 600;
@@ -146,8 +157,9 @@ input:focus-visible, select:focus-visible, button:focus-visible {
 
 .assign {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 4fr 4fr 1fr;
   gap: 1rem;
+  align-items: end;
   margin-bottom: 1.25rem;
 }
 
@@ -234,6 +246,17 @@ th {
   font-weight: 600;
 }
 
+.img{
+  width: 1.8rem;
+  height: 1.8rem;
+
+}
+.plus-button{
+  width: 1.8rem;
+  height: 1.8rem;
+  display: contents;
+}
+
 /* smaller secondary button for rows, e.g. "End trip" */
 .button-small {
   padding: 0.3rem 0.8rem;
@@ -275,6 +298,11 @@ th {
 .toggle input {
   width: auto;
   margin: 0;
+}
+
+.addDriver{
+  margin-top: 1rem;
+
 }
 
 /* ---------- Small screens ---------- */

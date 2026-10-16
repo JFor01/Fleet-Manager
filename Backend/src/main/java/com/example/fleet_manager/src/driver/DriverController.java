@@ -18,10 +18,9 @@ public class DriverController {
     }
 
     @PostMapping()
-    public String saveDriver (@RequestBody DriverRequest driverRequest)
+    public Driver saveDriver (@RequestBody DriverRequest driverRequest)
         {
-            driverService.saveDriver(driverRequest.name(),driverRequest.age());
-            return "Saved driver " + driverRequest.name;
+           return driverService.saveDriver(driverRequest.name(),driverRequest.age());
     }
     @DeleteMapping("/{id}")
     public String deleteDriver (@PathVariable Long id){

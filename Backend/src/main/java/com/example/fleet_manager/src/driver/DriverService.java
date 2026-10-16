@@ -14,8 +14,9 @@ public class DriverService {
         this.driverRepository = driverRepository;
     }
 
-    public void saveDriver (String name, int age){
-        driverRepository.save(new Driver(name,age,false));
+    public Driver saveDriver (String name, int age){
+
+        return driverRepository.save(new Driver(name,age,false));
     }
 
 

@@ -24,16 +24,20 @@ export class DriverService{
     this._drivers.update(list => updateEntity(driver,list));
   }
 
+  public appendDriver(driver :Driver){
+      this._drivers.update(list =>[...list,driver] )
+  }
+
 
    private getAll() : Observable<Driver[]>{
       return this.http.get<Driver[]>(this.url);
 }
+
    private getById(id : number) : Observable<Driver>{
       return this.http.get<Driver>(`${this.url}/${id}`);
     }
-   private create(driver : Omit<Driver,'id'>):Observable<Driver>{
-      return this.http.post<Driver>(this.url,driver
-        );
+   public add(driver : Omit<Driver, "id">):Observable<Driver>{
+      return this.http.post<Driver>(this.url,driver);
     }
 
     delete(id : number) : Observable<void>{

@@ -1,0 +1,29 @@
+<section class="addDriver">
+@if (!addFlag()){
+<button class ="plus-button" type="button" (click)="addFlag.set(true)" >
+  <img class="img" alt="Couldn't load" src="plus-3.png">
+</button>
+}
+@else {
+<form [formGroup]="addDriverForm" (ngSubmit)="addDriver()" ) >
+    <div class="assign" >
+        <div class="field-add" >
+        <label for="name">Name </label>
+        <input id ="name" type = "text"  formControlName="name" />
+          </div>
+
+        <div class="field-add">
+        <label for="age">Age </label>
+        <input id ="age" type = "text"  formControlName="age" />
+        </div>
+      <button class ="plus-button" type="submit" >
+        <img class="img" alt="Couldn't load" src="plus-3.png">
+      </button>
+    </div>
+
+
+
+  </form>
+}
+</section>
+
